@@ -23,9 +23,16 @@
         const battleship = game.Image({src:"../assets/battleship.png",Y:window.innerHeight-64});
         const alien = game.Image({src:"../assets/alien.png",X:window.innerWidth-64});
 
+        const gun = game.Line({X:alien.X+32,Y:alien.Y+64,Size:5,From:0,To:32,Background:'red'});
+
         let alienDirection = 1;
         let battleshipDirecion = 2;
         game.Loop = ()=>{
+            gun.Y+=1;
+            if(gun.Y > window.innerHeight){
+                gun.Y = alien.Y+64;
+                gun.X = alien.X+32;
+            }
             if(battleshipDirecion == 1){
                 battleship.X += 2;
                 if(battleship.X > window.innerWidth-64){

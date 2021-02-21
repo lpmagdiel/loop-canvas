@@ -14,6 +14,7 @@ class loopCanvas{
         this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
         this.Render(FPS);
         this.Loop;
+        console.log("%c🎴 loopCanvas 🎴","font-size:2em;color:tomato");
     }
     /**
      * 
@@ -44,6 +45,19 @@ class loopCanvas{
         this.gameObjects.push(gameObject);
         return this.gameObjects[this.gameObjects.length-1];
     }
+    Line(lineSettings){
+        let gameObject = {
+            type:'Line',
+            X:lineSettings.X || 0,
+            Y:lineSettings.Y || 0,
+            From:lineSettings.From,
+            To:lineSettings.To,
+            Size: lineSettings.Size || 5,
+            Background:lineSettings.Background || 'white'
+        }
+        this.gameObjects.push(gameObject);
+        return this.gameObjects[this.gameObjects.length-1];
+    }
     Render(FPS){
         window.setInterval(()=>{
             this.context.fillStyle = 'black';
@@ -52,6 +66,14 @@ class loopCanvas{
                 let obj = this.gameObjects[i];
                 if(obj.type == 'Image'){
                     this.context.drawImage(obj.image, obj.X, obj.Y);
+                }
+                else if(obj.type == 'Line'){
+                    this.context.beginPath();
+                    this.context.moveTo(obj.X, obj.Y);
+                    this.context.lineTo(obj.From+obj.X, obj.To+obj.Y);
+                    this.context.strokeStyle = obj.Background;
+                    this.context.lineWidth = obj.Size;
+                    this.context.stroke();
                 }
             }
             if(typeof this.Loop == 'function'){

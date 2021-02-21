@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image draw</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            padding:0px;
+            margin:0px;
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+
+    <script src="../dist/loopCanvas.js"></script>
+    <script>
+        const game = new loopCanvas('myCanvas',60);
+        const battleship = game.Image({src:"../assets/battleship.png",Y:window.innerHeight-64});
+        const alien = game.Image({src:"../assets/alien.png",X:window.innerWidth-64});
+
+        let alienDirection = 1;
+        let battleshipDirecion = 2;
+        game.Loop = ()=>{
+            if(battleshipDirecion == 1){
+                battleship.X += 2;
+                if(battleship.X > window.innerWidth-64){
+                    battleshipDirecion = 2;
+                }
+            }
+            else{
+                battleship.X -= 2;
+                if(battleship.X < 0){
+                    battleshipDirecion = 1;
+                }
+            }
+            if(alienDirection == 1){
+                alien.X += 1;
+                if(alien.X > window.innerWidth-64){
+                    alienDirection = 2;
+                }
+            }
+            else{
+                alien.X -= 1;
+                if(alien.X < 0){
+                    alienDirection = 1;
+                }
+            }
+        }
+        game.KeyDown(k=>{
+            switch(k){
+                case 'ArrowUp':
+                    battleship.Y-=2;
+                    break;
+                case 'ArrowDown':
+                    battleship.Y+=2;
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

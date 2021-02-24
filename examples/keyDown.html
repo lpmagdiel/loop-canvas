@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image draw</title>
+    <title>KeyDown</title>¨
     <style>
         *{
             box-sizing: border-box;
@@ -16,15 +16,16 @@
 </head>
 <body>
     <canvas id="myCanvas"></canvas>
-
     <script src="../dist/magma2d.js"></script>
     <script>
         const game = new MAGMA2D('myCanvas',60);
-        const battleship = game.Image({src:"../assets/battleship.png",Y:window.innerHeight-64,Width:32,Height:32});
-        const imageExample = game.CreateScene('example');
-        imageExample.Add(battleship);
+        const text = game.Text({Text:"Key: ",X:game.Width/2,Y:game.Height/2});
+        const textExample = game.CreateScene('example');
+        textExample.Add(text);
         game.ChangeScene('example');
-        
+        game.KeyDown(k=>{
+            text.Text = 'Key: '+k;
+        });
     </script>
 </body>
 </html>
